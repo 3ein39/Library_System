@@ -151,6 +151,23 @@ bool search_books_by_prefix() {
     return true;
 }
 
+bool print_who_borrowed_book_by_name() {
+    cout << "Enter book name: ";
+    string _book_name;
+    cin >> _book_name;
+    int bookIdx = check_book_validity(_book_name);
+    if (bookIdx) {
+        for (auto it = books[bookIdx].borrowed_books.begin(); it != books[bookIdx].borrowed_books.end(); it++){
+            // here you have user names in *it
+            cout << *it << endl;
+        }
+    } else {
+        cout << "Book not found .. try again..\n";
+        return false;
+    }
+    return true;
+}
+
 void print_library_by_id(){
     sort(books, books + MAX_BOOKS + 1, cmp_books_by_id);
     for (auto book: books) {
@@ -191,6 +208,8 @@ void system() {
             add_book();
         else if (choice == 2)
             search_books_by_prefix();
+        else if (choice == 3)
+            print_who_borrowed_book_by_name();
         else if (choice == 4)
             print_library_by_id();
         else if (choice == 5)
