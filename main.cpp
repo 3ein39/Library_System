@@ -11,7 +11,7 @@ struct Books {
     int total_quantity {};
     int total_borrowed {};
 
-    vector<pair<string, string>> borrowed_books; // user name .. book name
+    vector<string> borrowed_books; // user name
 };
 Books books[MAX_BOOKS + 1]; // from 1 to 10 distinct books
 bool cmp_books_by_id(Books x, Books y){
@@ -24,7 +24,7 @@ bool cmp_books_by_name(Books x, Books y){
 struct Users {
     int national_id {};
     string name {};
-    int borrowed_books_ids[];
+    vector<int> borrowed_books_ids;
 
 };
 Users users[MAX_USERS + 1]; // from 1 to 10 distinct users
@@ -54,7 +54,7 @@ int menu() {
 }
 
 bool add_book() {
-    int pos {0};
+    int pos {1};
     while(books[pos].id != 0){ // gets next free position in books array;
         if (pos == 10){ // reaching maximum book number handled
             cout << "Maximum books reached [10].\n"
@@ -69,7 +69,7 @@ bool add_book() {
 }
 
 bool add_user() {
-    int pos {0};
+    int pos {1};
     while(users[pos].national_id != 0){ // gets next free position in users array;
         if (pos == 10){ // reaching maximum user number handled
             cout << "Maximum users reached [10].\n"
@@ -80,6 +80,51 @@ bool add_user() {
     }
     cout << "Enter user name & national id: ";
     cin >> users[pos].name >> users[pos].national_id ;
+    return true;
+}
+
+int check_user_name_validity(string _user) { // returns user position if exists
+    for (int i = 1; i <= MAX_USERS; i++) {
+        if (users[i].national_id != 0){
+            if (users[i].name == _user){
+                return i;
+            }
+        }
+    }
+    return false;
+}
+
+int check_book_validity(string _book_name) { // returns book position if exist
+    for (int i = 1; i <= MAX_BOOKS; ++i) {
+        if (books[i].id != 0){
+            if (books[i].name == _book_name){
+                return i;
+            }
+        }
+    }
+    return false;
+}
+
+bool user_borrow_book(){
+    cout << "Enter user name and book name : ";
+    string _user, _book_name;
+    cin >> _user >> _book_name;
+    int userIdx = check_user_name_validity(_user);
+    int bookIdx = check_book_validity(_book_name);
+
+    if (!(bookIdx && userIdx)) { // some exception handling
+        cout << "Invalid user name or book not found.. please try again.\n";
+        return false;
+    }
+    if (books[bookIdx].total_quantity == 0){
+        cout << "Book name : " << _book_name << " has 0 quantities left..\n";
+        return false;
+    }
+
+    books[bookIdx].total_quantity--;books[bookIdx].total_borrowed++;
+    books[bookIdx].borrowed_books.push_back(_user);
+
+    users[userIdx].borrowed_books_ids.push_back(books[bookIdx].id);
     return true;
 }
 
@@ -115,6 +160,8 @@ void system() {
             print_library_by_name();
         else if (choice == 6)
             add_user();
+        else if (choice == 7)
+            user_borrow_book();
         else if (choice == 10)
             break;
     }
@@ -124,3 +171,14 @@ int main() {
     system();
     return 0;
 }
+
+/*
+ * 7 .. user_borrow_book
+ * enters user name and book name
+ * searches for both names to see if they exist
+ * if true
+ * if total quantity > 0
+ * total boreowed ++
+ * book.borrowedbook = user name
+ * user.borrowedbooksids.push(id)
+ */
