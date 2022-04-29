@@ -132,6 +132,7 @@ bool search_books_by_prefix() {
     cout << "Enter book name prefix: ";
     string _book_name;
     cin >> _book_name;
+    int cnt {0};
     for (int i = 1; i <= MAX_BOOKS; ++i) {
         if (books[i].id != 0){
             bool exist = true;
@@ -142,9 +143,11 @@ bool search_books_by_prefix() {
             }
         if (exist) {
             cout << books[i].name << endl;
+            cnt++;
         }
         }
     }
+    if (!cnt) cout << "No books with such prefix..\n";
     return true;
 }
 
