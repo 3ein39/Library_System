@@ -17,6 +17,9 @@ Books books[MAX_BOOKS + 1]; // from 1 to 10 distinct books
 bool cmp_books_by_id(Books x, Books y){
     return x.id < y.id;
 }
+bool cmp_books_by_name(Books x, Books y){
+    return x.name < y.name;
+}
 
 struct Users {
     int id {};
@@ -75,6 +78,16 @@ void print_library_by_id(){
         }
     }
 }
+void print_library_by_name() {
+    sort(books, books + MAX_BOOKS + 1, cmp_books_by_name);
+    for (auto book: books) {
+        if (book.id != 0) {
+            cout << "Id = " << book.id << " name = " << book.name
+                 << " total_quantity = " << book.total_quantity
+                 << " total_borrowed = " << book.total_borrowed << endl;
+        }
+    }
+}
 
 void system() {
     while (true){
@@ -83,6 +96,8 @@ void system() {
             add_book();
         else if (choice == 4)
             print_library_by_id();
+        else if (choice == 5)
+            print_library_by_name();
         else if (choice == 10)
             break;
     }
