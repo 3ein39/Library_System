@@ -70,7 +70,7 @@ bool add_book() {
 
 bool add_user() {
     int pos {0};
-    while(users[pos].id != 0){ // gets next free position in users array;
+    while(users[pos].national_id != 0){ // gets next free position in users array;
         if (pos == 10){ // reaching maximum user number handled
             cout << "Maximum users reached [10].\n"
                  << "YOU CAN'T ADD MORE!\n";
