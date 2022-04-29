@@ -1,5 +1,30 @@
 #include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
+
+const int MAX_BOOKS = 10;
+const int MAX_USERS = 10;
+
+struct Books {
+    int id {};
+    string name {};
+    int total_quantity {};
+    int total_borrowed {};
+
+    vector<pair<string, string>> borrowed_books; // user name .. book name
+};
+
+Books books[MAX_BOOKS + 1]; // from 1 to 10 distinct books
+
+struct Users {
+    int id {};
+    string name {};
+    int borrowed_books_ids[];
+
+};
+
+Users users[MAX_USERS + 1]; // from 1 to 10 distinct users
+
 
 int menu() {
     int choice = -1;
