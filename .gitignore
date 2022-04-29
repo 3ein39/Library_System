@@ -1,6 +1,7 @@
 .idea
 CMakeLists.txt
 cmake-build-debug
+in.txt
 *.d
 *.slo
 *.lo
