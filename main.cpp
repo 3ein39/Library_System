@@ -22,7 +22,7 @@ bool cmp_books_by_name(Books x, Books y){
 }
 
 struct Users {
-    int id {};
+    int national_id {};
     string name {};
     int borrowed_books_ids[];
 
@@ -63,8 +63,23 @@ bool add_book() {
         }
         pos++;
     }
-    cout << "Enter book info: id & name & total quantity: ";
+    cout << "Enter books id & name & total quantity: ";
     cin >> books[pos].id >> books[pos].name >> books[pos].total_quantity;
+    return true;
+}
+
+bool add_user() {
+    int pos {0};
+    while(users[pos].id != 0){ // gets next free position in users array;
+        if (pos == 10){ // reaching maximum user number handled
+            cout << "Maximum users reached [10].\n"
+                 << "YOU CAN'T ADD MORE!\n";
+            return false;
+        }
+        pos++;
+    }
+    cout << "Enter user name & national id: ";
+    cin >> users[pos].name >> users[pos].national_id ;
     return true;
 }
 
@@ -98,6 +113,8 @@ void system() {
             print_library_by_id();
         else if (choice == 5)
             print_library_by_name();
+        else if (choice == 6)
+            add_user();
         else if (choice == 10)
             break;
     }
