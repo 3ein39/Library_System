@@ -127,6 +127,24 @@ bool user_borrow_book(){
     users[userIdx].borrowed_books_ids.push_back(books[bookIdx].id);
     return true;
 }
+bool user_return_book(){
+    cout << "Enter user name and book name : ";
+    string _user, _book_name;
+    cin >> _user >> _book_name;
+    int userIdx = check_user_name_validity(_user);
+    int bookIdx = check_book_validity(_book_name);
+
+    if (!(bookIdx && userIdx)) { // some exception handling
+        cout << "Invalid user name or book not found.. please try again.\n";
+        return false;
+    }
+    books[bookIdx].total_quantity++;books[bookIdx].total_borrowed--;
+    books[bookIdx].borrowed_books.pop_back();
+
+    users[userIdx].borrowed_books_ids.pop_back();
+
+    return true;
+}
 
 bool search_books_by_prefix() {
     cout << "Enter book name prefix: ";
@@ -218,6 +236,8 @@ void system() {
             add_user();
         else if (choice == 7)
             user_borrow_book();
+        else if (choice == 8)
+            user_return_book();
         else if (choice == 9)
             print_users();
         else if (choice == 10)
@@ -239,4 +259,7 @@ int main() {
  * total boreowed ++
  * book.borrowedbook = user name
  * user.borrowedbooksids.push(id)
+ *
+ *
+ * ali has 101 math2
  */
