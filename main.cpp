@@ -148,6 +148,18 @@ void print_library_by_name() {
         }
     }
 }
+void print_users() {
+    for (auto user: users){
+        if (user.national_id != 0) {
+            cout << "user: " << user.name
+                << " national_id: " << user.national_id
+                << " borrowed_books_ids: ";
+                for (auto it = user.borrowed_books_ids.begin(); it != user.borrowed_books_ids.end(); it++)
+                    cout << *it << " ";
+                cout << '\n';
+        }
+    }
+}
 
 void system() {
     while (true){
@@ -162,6 +174,8 @@ void system() {
             add_user();
         else if (choice == 7)
             user_borrow_book();
+        else if (choice == 9)
+            print_users();
         else if (choice == 10)
             break;
     }
