@@ -139,10 +139,10 @@ bool user_return_book(){
         return false;
     }
     books[bookIdx].total_quantity++;books[bookIdx].total_borrowed--;
-    books[bookIdx].borrowed_books.pop_back();
-
-    users[userIdx].borrowed_books_ids.pop_back();
-
+    // find _user in books[bookIdx].borrowed_books and erase it
+    books[bookIdx].borrowed_books.erase(find(books[bookIdx].borrowed_books.begin(), books[bookIdx].borrowed_books.end(), _user));
+    // in users[userIdx].borrowed_books_ids find books[bookIdx].id
+    users[userIdx].borrowed_books_ids.erase(find(users[userIdx].borrowed_books_ids.begin(),users[userIdx].borrowed_books_ids.end(), books[bookIdx].id));
     return true;
 }
 
