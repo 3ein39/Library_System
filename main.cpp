@@ -249,17 +249,3 @@ int main() {
     system();
     return 0;
 }
-
-/*
- * 7 .. user_borrow_book
- * enters user name and book name
- * searches for both names to see if they exist
- * if true
- * if total quantity > 0
- * total boreowed ++
- * book.borrowedbook = user name
- * user.borrowedbooksids.push(id)
- *
- *
- * ali has 101 math2
- */
